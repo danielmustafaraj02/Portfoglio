@@ -7,13 +7,13 @@ export default function App() {
     <div className="portfolio">
       {/* Hero */}
       <header className="hero-section">
+        {lightbox && (
+          <div className="lightbox" onClick={() => setLightbox(false)}>
+            <img src="/ME.jpeg" alt="Daniel Mustafaraj" />
+          </div>
+        )}
         <div className="hero-content">
           <img src="/ME.jpeg" alt="Daniel Mustafaraj" className="avatar" onClick={() => setLightbox(true)} />
-          {lightbox && (
-            <div className="lightbox" onClick={() => setLightbox(false)}>
-              <img src="/ME.jpeg" alt="Daniel Mustafaraj" />
-            </div>
-          )}
           <div className="hero-text">
             <h1>Daniel <span className="accent">Mustafaraj</span></h1>
             <p className="tagline">Electronic Engineering · Computer Engineering</p>
@@ -83,6 +83,14 @@ export default function App() {
                 <p className="muted">Graduated: 22/07/2025 · Age at graduation: 22</p>
               </div>
             </div>
+            <div className="timeline-item">
+              <div className="timeline-year">2016 – 2021</div>
+              <div className="timeline-body">
+                <h3>High School Diploma <span className="badge done">95/100</span></h3>
+                <p>Informatica e Telecomunicazioni</p>
+                <p className="institution">J.F. Kennedy · Monselice (PD)</p>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -103,6 +111,14 @@ export default function App() {
               <div className="tags">
                 <span className="tag">Web Programming</span>
                 <span className="tag">DBMS</span>
+              </div>
+            </div>
+            <div className="skill-group">
+              <h3>Electronics</h3>
+              <div className="tags">
+                {['LTspice','Oscilloscope','Spectrum Analyzer','Counter'].map(s => (
+                  <span key={s} className="tag">{s}</span>
+                ))}
               </div>
             </div>
 
