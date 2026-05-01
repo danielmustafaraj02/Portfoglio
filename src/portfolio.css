@@ -61,6 +61,7 @@
   transition: opacity .2s;
 }
 .btn:hover { opacity: .85; }
+.btn-icon { padding: .55rem .7rem; display: inline-flex; align-items: center; justify-content: center; }
 .btn-outline {
   background: transparent;
   border: 1px solid var(--border);
@@ -92,21 +93,20 @@
 
 /* ── Timeline ── */
 .timeline { display: flex; flex-direction: column; gap: 1.6rem; }
-.timeline-item { display: flex; gap: 1.4rem; align-items: flex-start; justify-content: center; }
+.timeline-item { display: flex; flex-direction: column; gap: .4rem; }
 .timeline-year {
-  min-width: 90px;
   font-size: .82rem;
   font-weight: 600;
   color: var(--accent);
-  padding-top: .2rem;
-  text-align: right;
+  text-align: left;
+  flex-shrink: 0;
 }
-.timeline-body { flex: 1; max-width: 520px; }
+.timeline-body { flex: 1; text-align: center; }
 .timeline-body h3 { font-size: 1rem; color: var(--heading); margin-bottom: .25rem; }
 .timeline-body p { font-size: .9rem; margin-bottom: .15rem; }
 .institution { color: var(--muted); font-size: .85rem !important; }
 .muted { color: var(--muted); font-size: .85rem; }
-@media (max-width: 480px) { .timeline-item { flex-direction: column; gap: .3rem; } }
+@media (max-width: 480px) { .timeline-item { gap: .3rem; } }
 
 /* ── Badges ── */
 .badge {
@@ -202,6 +202,39 @@
 
 .footer { text-align: center; padding: 2rem 0 0; color: var(--muted); font-size: .85rem; }
 .footer a { color: var(--accent2); text-decoration: none; }
+
+/* ── Certificates ── */
+.cert-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+  padding: .5rem;
+  border-radius: 8px;
+  transition: background .2s;
+}
+.cert-item:hover { background: rgba(124,106,247,.08); }
+.cert-thumb {
+  width: 56px;
+  height: 56px;
+  border-radius: 8px;
+  background: rgba(124,106,247,.12);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+.cert-thumb img { width: 36px; height: 36px; object-fit: contain; }
+.cert-title { font-weight: 600; color: var(--heading); margin-bottom: .15rem; }
+.cert-lightbox iframe {
+  width: min(900px, 92vw);
+  height: min(620px, 80vh);
+  border: none;
+  border-radius: 10px;
+}
 
 /* ── Mobile ── */
 @media (max-width: 600px) {
