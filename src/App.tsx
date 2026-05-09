@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Analytics } from '@vercel/analytics/react';
 import './portfolio.css';
 
 export default function App() {
@@ -181,6 +182,7 @@ export default function App() {
       <footer className="footer">
         <p>© {new Date().getFullYear()} Daniel Mustafaraj · <a href="/CV.pdf" download>Download CV</a></p>
       </footer>
+      <Analytics />
     </div>
   );
 }
