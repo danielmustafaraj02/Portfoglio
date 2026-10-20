@@ -5,7 +5,7 @@
     "label": "MSc student, Electronic Engineering · University of Padua",
     "email": "mustafaraj.daniel2002@gmail.com",
     "phone": "+39 391 359 2913",
-    "summary": "MSc Electronic Engineering student at the University of Padua (weighted average 28.3/30), looking for a master's thesis starting in early 2027, or an internship, in photonics and optoelectronics, microelectronics or digital design. Top marks (30/30) in Microelectronics, Optoelectronic and Photovoltaic Devices and Organic and Molecular Electronics; Verilog on a Tang Nano 9K FPGA; Bachelor's in Computer Engineering. Open to R&D roles in industry or research labs, in Italy or elsewhere in Europe.",
+    "summary": "I'm a second-year MSc student in Electronic Engineering at the University of Padua (average 28.3/30). I'm looking for a master's thesis starting in early 2027, or an internship, in photonics and optoelectronics, microelectronics or digital design. I got 30/30 in Microelectronics, Optoelectronic and Photovoltaic Devices and Organic and Molecular Electronics. I work with Verilog on a Tang Nano 9K FPGA, and I have a Bachelor's in Computer Engineering. I can work in a company or in a research lab, in Italy or elsewhere in Europe.",
     "location": {
       "city": "Monselice",
       "region": "PD",
@@ -32,7 +32,7 @@
       "studyType": "Master's Degree",
       "startDate": "2025",
       "endDate": "2027",
-      "score": "28.3/30 weighted average (60 CFU, in progress)"
+      "score": "28.3/30 average (60 CFU, in progress)"
     },
     {
       "institution": "Università degli Studi di Padova",
@@ -94,7 +94,7 @@
       "keywords": [
         "Linux",
         "MySQL",
-        "Database management systems (DBMS)"
+        "Databases (DBMS)"
       ]
     }
   ],

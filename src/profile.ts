@@ -64,8 +64,8 @@ export const focusAreas: { title: Text; evidence: Text }[] = [
   {
     title: { en: 'Photonics & optoelectronics', it: 'Fotonica e optoelettronica' },
     evidence: {
-      en: 'Optoelectronic and Photovoltaic Devices (30/30), Physics and Optics at the Nanoscale and Nanophotonics and Metasurfaces (in progress)',
-      it: 'Optoelectronic and Photovoltaic Devices (30/30), Physics and Optics at the Nanoscale e Nanophotonics and Metasurfaces (in corso)',
+      en: 'Optoelectronic and Photovoltaic Devices (30/30). Now I am studying Physics and Optics at the Nanoscale and Nanophotonics and Metasurfaces',
+      it: 'Optoelectronic and Photovoltaic Devices (30/30). Ora studio Physics and Optics at the Nanoscale e Nanophotonics and Metasurfaces',
     },
   },
   {
@@ -78,15 +78,15 @@ export const focusAreas: { title: Text; evidence: Text }[] = [
   {
     title: { en: 'Digital design', it: 'Progettazione digitale' },
     evidence: {
-      en: 'Verilog and FPGA programming on a Tang Nano 9K board, on top of a Computer Engineering background',
-      it: 'Verilog e programmazione FPGA su scheda Tang Nano 9K, su una base di Ingegneria Informatica',
+      en: 'I write Verilog and program an FPGA board (Tang Nano 9K). I also have a Computer Engineering background',
+      it: 'Scrivo Verilog e programmo una scheda FPGA (Tang Nano 9K). Ho anche una base di Ingegneria Informatica',
     },
   },
   {
     title: { en: 'Power electronics & analogue IC design', it: 'Elettronica di potenza e circuiti integrati analogici' },
     evidence: {
-      en: 'Both courses in progress this semester',
-      it: 'Sto seguendo entrambi i corsi in questo semestre',
+      en: 'I am taking both courses this semester',
+      it: 'Seguo entrambi i corsi in questo semestre',
     },
   },
 ];
@@ -119,7 +119,7 @@ export const skills: { group: Text; items: Text[] }[] = [
     items: [
       { en: 'Linux', it: 'Linux' },
       { en: 'MySQL', it: 'MySQL' },
-      { en: 'Database management systems (DBMS)', it: 'Sistemi di gestione di basi di dati (DBMS)' },
+      { en: 'Databases (DBMS)', it: 'Basi di dati (DBMS)' },
     ],
   },
 ];
