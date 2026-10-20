@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<title>Daniel Mustafaraj — Curriculum Vitae</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1d1d1b;
+    --text: #3a3a37;
+    --muted: #75736d;
+    --rule: #d9d6cf;
+    --side: #f3f1ec;
+    --accent: #8c1c22;
+  }
+
+  html, body { background: #fff; }
+  body {
+    font: 9.6pt/1.45 'IBM Plex Sans', 'Liberation Sans', sans-serif;
+    color: var(--text);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .page {
+    width: 210mm;
+    height: 297mm;
+    display: grid;
+    grid-template-columns: 66mm 1fr;
+    overflow: hidden;
+  }
+
+  /* ── Sidebar ── */
+  aside {
+    background: var(--side);
+    padding: 12mm 8mm 8mm 10mm;
+  }
+  aside h2 {
+    font: 600 7.6pt/1 'IBM Plex Sans', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    color: var(--ink);
+    padding-bottom: 1.6mm;
+    border-bottom: 1px solid var(--rule);
+    margin: 5mm 0 2.2mm;
+  }
+  aside h2:first-of-type { margin-top: 0; }
+  aside dl { display: grid; gap: 1.7mm; }
+  aside dt { font-size: 7.4pt; color: var(--muted); }
+  aside dd { color: var(--ink); word-break: break-word; }
+  aside a { color: inherit; text-decoration: none; }
+  .email { font-size: 8.3pt; white-space: nowrap; letter-spacing: -.01em; }
+  aside ul { list-style: none; display: grid; gap: 1.2mm; }
+  .skill-head { font-weight: 600; color: var(--ink); margin-top: 1.8mm; }
+  .skill-head:first-of-type { margin-top: 0; }
+  .lang { display: flex; justify-content: space-between; }
+  .lang span:last-child { color: var(--muted); }
+
+  /* ── Main ── */
+  main { padding: 14mm 13mm 12mm 11mm; display: flex; flex-direction: column; }
+  header { margin-bottom: 7mm; }
+  h1 {
+    font: 600 25pt/1.05 'IBM Plex Serif', 'Liberation Serif', serif;
+    color: var(--ink);
+    letter-spacing: -.01em;
+  }
+  .role { margin-top: 2mm; font-size: 10.5pt; color: var(--accent); font-weight: 500; }
+
+  main h2 {
+    font: 600 11pt/1 'IBM Plex Serif', 'Liberation Serif', serif;
+    color: var(--ink);
+    margin: 6.5mm 0 3mm;
+    display: flex;
+    align-items: center;
+    gap: 3mm;
+  }
+  main h2::after { content: ""; flex: 1; height: 1px; background: var(--rule); }
+  main section:first-of-type h2 { margin-top: 0; }
+
+  .entry { margin-bottom: 4.5mm; display: grid; grid-template-columns: 11mm 1fr; column-gap: 4mm; }
+  .entry > .logo { width: 11mm; height: 11mm; object-fit: contain; margin-top: .3mm; }
+  .entry-top { display: flex; justify-content: space-between; align-items: baseline; gap: 4mm; }
+  .entry h3 { font-size: 10pt; font-weight: 600; color: var(--ink); }
+  .date { font-size: 8.4pt; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .org { color: var(--text); }
+  .note { color: var(--muted); font-size: 8.8pt; }
+  .entry p + p { margin-top: .6mm; }
+
+  .areas { display: grid; gap: 1.2mm; }
+  .areas div { display: grid; grid-template-columns: 50mm 1fr; column-gap: 3mm; align-items: baseline; }
+  .areas dt { font-weight: 600; color: var(--ink); }
+  .areas dd { color: var(--muted); font-size: 8.8pt; }
+
+  .badges { display: flex; gap: 7mm; }
+  .badge { width: 29mm; font-size: 7.6pt; line-height: 1.3; color: var(--text); }
+  .badge img { display: block; width: 26mm; height: 26mm; margin-bottom: 1.2mm; }
+  .badge strong { display: block; font-weight: 600; color: var(--ink); }
+
+  .consent {
+    margin-top: auto;
+    font-size: 6.8pt;
+    color: var(--muted);
+    line-height: 1.35;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <aside>
+
+    <h2>Contatti</h2>
+    <dl>
+      <div><dt>Email</dt><dd class="email"><a href="mailto:mustafaraj.daniel2002@gmail.com">mustafaraj.daniel2002@gmail.com</a></dd></div>
+      <div><dt>Telefono</dt><dd>+39 391 359 2913</dd></div>
+      <div><dt>Residenza</dt><dd>Monselice (PD)</dd></div>
+      <div><dt>LinkedIn</dt><dd><a href="https://www.linkedin.com/in/daniel-mustafaraj-63b1b4247/">in/daniel-mustafaraj</a></dd></div>
+      <div><dt>GitHub</dt><dd><a href="https://github.com/danielmustafaraj02">github.com/danielmustafaraj02</a></dd></div>
+      <div><dt>Disponibilità</dt><dd>Tesi magistrale da inizio 2027</dd></div>
+      <div><dt>Nato il</dt><dd>02/09/2002 · cittadinanza italiana</dd></div>
+    </dl>
+
+    <h2>Competenze</h2>
+    <p class="skill-head">Progettazione digitale</p>
+    <p>Verilog, programmazione FPGA (Tang Nano 9K)</p>
+    <p class="skill-head">Laboratorio di elettronica</p>
+    <p>LTspice, oscilloscopio, analizzatore di spettro</p>
+    <p class="skill-head">Programmazione</p>
+    <p>Python, MATLAB, C++, Java, Assembly</p>
+    <p class="skill-head">Sviluppo web</p>
+    <p>HTML, CSS, JavaScript, PHP</p>
+    <p class="skill-head">Sistemi e basi di dati</p>
+    <p>Linux, MySQL, sistemi di gestione di basi di dati (DBMS)</p>
+
+    <h2>Lingue</h2>
+    <ul>
+      <li class="lang"><span>Italiano</span><span>Madrelingua</span></li>
+      <li class="lang"><span>Inglese</span><span>B2</span></li>
+    </ul>
+
+    <h2>Certificazioni</h2>
+    <ul>
+      <li><a href="https://matlabacademy.mathworks.com/progress/share/certificate.html?id=5c08de2a-54d0-4fae-b2cf-11abfab504c7&amp;">MATLAB Onramp</a> <span class="note">· MathWorks</span></li>
+    </ul>
+  </aside>
+
+  <main>
+    <header>
+      <h1>Daniel Mustafaraj</h1>
+      <p class="role">Studente magistrale, Ingegneria Elettronica · Università di Padova</p>
+    </header>
+
+    <section>
+      <h2>Profilo</h2>
+      <p>Studente di Laurea Magistrale in Ingegneria Elettronica all'Università di Padova (media ponderata 28,3/30), in cerca di una tesi magistrale da inizio 2027, o di un tirocinio, in fotonica e optoelettronica, microelettronica o progettazione digitale. Voti massimi (30/30) in Microelectronics, Optoelectronic and Photovoltaic Devices e Organic and Molecular Electronics; Verilog su FPGA Tang Nano 9K; Laurea Triennale in Ingegneria Informatica. Disponibile per ruoli di R&amp;D in azienda o in laboratori di ricerca, in Italia o in Europa.</p>
+    </section>
+
+    <section>
+      <h2>Istruzione</h2>
+
+      <div class="entry">
+        <img class="logo" src="unipd.svg" alt="">
+        <div>
+        <div class="entry-top">
+          <h3>Laurea Magistrale in Ingegneria Elettronica</h3>
+          <span class="date">2025 – 2027</span>
+        </div>
+        <p class="org">Università degli Studi di Padova · Dip. di Ingegneria dell'Informazione</p>
+        <p class="note">Classe LM-29 · in corso · media ponderata 28,3/30 su 60 CFU</p>
+        </div>
+      </div>
+
+      <div class="entry">
+        <img class="logo" src="unipd.svg" alt="">
+        <div>
+        <div class="entry-top">
+          <h3>Laurea Triennale in Ingegneria Informatica (L-8)</h3>
+          <span class="date">2021 – 2025</span>
+        </div>
+        <p class="org">Università degli Studi di Padova · Dip. di Ingegneria dell'Informazione</p>
+        <p>Voto finale 95/110 · laureato il 22/07/2025</p>
+        <p class="note">Tesi: <em>L'equazione di Laplace</em> (equazioni di Laplace e del calore) · Relatore: Prof. Paolo Musolino</p>
+        </div>
+      </div>
+
+      <div class="entry">
+        <img class="logo" src="kennedy.png" alt="">
+        <div>
+        <div class="entry-top">
+          <h3>Diploma di Istituto Tecnico</h3>
+          <span class="date">2016 – 2021</span>
+        </div>
+        <p class="org">ITIS J.F. Kennedy, Monselice (PD) · Informatica e Telecomunicazioni</p>
+        <p>Voto finale 95/100</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Progetti: aggiungi qui le voci, poi elimina questo commento.
+    <section>
+      <h2>Progetti</h2>
+      <div class="entry"><span></span><div>
+        <div class="entry-top"><h3>Titolo del progetto</h3><span class="date">2026</span></div>
+        <p>Una o due righe: cosa hai realizzato, con quali strumenti, e il risultato.</p>
+      </div></div>
+    </section>
+    -->
+
+    <section>
+      <h2>Aree di interesse</h2>
+      <dl class="areas">
+        <div><dt>Fotonica e optoelettronica</dt><dd>Optoelectronic and Photovoltaic Devices 30/30 · Physics and Optics at the Nanoscale e Nanophotonics and Metasurfaces (in corso)</dd></div>
+        <div><dt>Microelettronica e dispositivi</dt><dd>Microelectronics 30/30 · Organic and Molecular Electronics 30/30 · Nanoelectronics 29/30</dd></div>
+        <div><dt>Progettazione digitale</dt><dd>Verilog e programmazione FPGA su scheda Tang Nano 9K</dd></div>
+        <div><dt>Potenza e circuiti analogici</dt><dd>Power Electronics e Analogue Integrated Circuit Design (in corso)</dd></div>
+      </dl>
+    </section>
+
+    <section>
+      <h2>Badge</h2>
+      <div class="badges">
+        <div class="badge"><img src="badges/bachelor-ingegneria-informatica.png" alt="Badge: Laurea Triennale in Ingegneria Informatica, Università di Padova"><strong>Laurea Triennale</strong>Ingegneria Informatica · Università di Padova</div>
+        <div class="badge"><img src="badges/english-b2.png" alt="Badge: Inglese B2, Reading-Listening, Università di Padova"><strong>Inglese B2</strong>Reading e Listening · Università di Padova</div>
+      </div>
+    </section>
+
+    <p class="consent">Autorizzo il trattamento dei dati personali contenuti nel mio curriculum vitae ai sensi del Regolamento (UE) 2016/679 (GDPR) e del D.Lgs. 196/2003.</p>
+  </main>
+</div>
+</body>
+</html>

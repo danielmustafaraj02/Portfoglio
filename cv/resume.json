@@ -1,0 +1,162 @@
+{
+  "$schema": "https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/schema.json",
+  "basics": {
+    "name": "Daniel Mustafaraj",
+    "label": "MSc student, Electronic Engineering · University of Padua",
+    "email": "mustafaraj.daniel2002@gmail.com",
+    "phone": "+39 391 359 2913",
+    "summary": "MSc Electronic Engineering student at the University of Padua (weighted average 28.3/30), looking for a master's thesis starting in early 2027, or an internship, in photonics and optoelectronics, microelectronics or digital design. Top marks (30/30) in Microelectronics, Optoelectronic and Photovoltaic Devices and Organic and Molecular Electronics; Verilog on a Tang Nano 9K FPGA; Bachelor's in Computer Engineering. Open to R&D roles in industry or research labs, in Italy or elsewhere in Europe.",
+    "location": {
+      "city": "Monselice",
+      "region": "PD",
+      "countryCode": "IT"
+    },
+    "profiles": [
+      {
+        "network": "LinkedIn",
+        "username": "daniel-mustafaraj",
+        "url": "https://www.linkedin.com/in/daniel-mustafaraj-63b1b4247/"
+      },
+      {
+        "network": "GitHub",
+        "username": "danielmustafaraj02",
+        "url": "https://github.com/danielmustafaraj02"
+      }
+    ],
+    "availability": "Master's thesis from early 2027"
+  },
+  "education": [
+    {
+      "institution": "Università degli Studi di Padova",
+      "area": "Electronic Engineering (LM-29)",
+      "studyType": "Master's Degree",
+      "startDate": "2025",
+      "endDate": "2027",
+      "score": "28.3/30 weighted average (60 CFU, in progress)"
+    },
+    {
+      "institution": "Università degli Studi di Padova",
+      "area": "Computer Engineering (L-8)",
+      "studyType": "Bachelor's Degree",
+      "startDate": "2021",
+      "endDate": "2025-07-22",
+      "score": "95/110",
+      "courses": [
+        "Thesis: L'equazione di Laplace (supervisor: Prof. Paolo Musolino)"
+      ]
+    },
+    {
+      "institution": "J.F. Kennedy, Monselice (PD)",
+      "area": "Computer Science and Telecommunications",
+      "studyType": "Technical High School Diploma",
+      "startDate": "2016",
+      "endDate": "2021",
+      "score": "95/100"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Digital design",
+      "keywords": [
+        "Verilog",
+        "FPGA programming (Tang Nano 9K)"
+      ]
+    },
+    {
+      "name": "Electronics lab",
+      "keywords": [
+        "LTspice",
+        "Oscilloscope",
+        "Spectrum analyser"
+      ]
+    },
+    {
+      "name": "Programming",
+      "keywords": [
+        "Python",
+        "MATLAB",
+        "C++",
+        "Java",
+        "Assembly"
+      ]
+    },
+    {
+      "name": "Web development",
+      "keywords": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "PHP"
+      ]
+    },
+    {
+      "name": "Systems & databases",
+      "keywords": [
+        "Linux",
+        "MySQL",
+        "Database management systems (DBMS)"
+      ]
+    }
+  ],
+  "languages": [
+    {
+      "language": "Italian",
+      "fluency": "Native"
+    },
+    {
+      "language": "English",
+      "fluency": "B2"
+    }
+  ],
+  "certificates": [
+    {
+      "name": "MATLAB Onramp",
+      "issuer": "MathWorks",
+      "url": "https://matlabacademy.mathworks.com/progress/share/certificate.html?id=5c08de2a-54d0-4fae-b2cf-11abfab504c7&"
+    }
+  ],
+  "interests": [
+    {
+      "name": "Photonics & optoelectronics",
+      "keywords": [
+        "Optoelectronic and Photovoltaic Devices (30/30)",
+        "Physics and Optics at the Nanoscale (in progress)",
+        "Nanophotonics and Metasurfaces (in progress)"
+      ]
+    },
+    {
+      "name": "Microelectronics & semiconductor devices",
+      "keywords": [
+        "Microelectronics (30/30)",
+        "Organic and Molecular Electronics (30/30)",
+        "Nanoelectronics (29/30)"
+      ]
+    },
+    {
+      "name": "Digital design",
+      "keywords": [
+        "Verilog",
+        "FPGA programming on a Tang Nano 9K board"
+      ]
+    },
+    {
+      "name": "Power electronics & analogue IC design",
+      "keywords": [
+        "Power Electronics (in progress)",
+        "Analogue Integrated Circuit Design (in progress)"
+      ]
+    }
+  ],
+  "badges": [
+    {
+      "name": "Bachelor's Degree, Ingegneria Informatica",
+      "issuer": "Università di Padova",
+      "image": "badges/bachelor-ingegneria-informatica.png"
+    },
+    {
+      "name": "English B2, Reading-Listening",
+      "issuer": "Università di Padova",
+      "image": "badges/english-b2.png"
+    }
+  ]
+}

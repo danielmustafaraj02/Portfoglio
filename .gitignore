@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Local-only: never commit, never deploy
+private/
+jobs.html
+jobs_data.json
+build_jobs_page.py
+__pycache__/
