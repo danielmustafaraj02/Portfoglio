@@ -2,10 +2,10 @@
   "$schema": "https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/schema.json",
   "basics": {
     "name": "Daniel Mustafaraj",
-    "label": "MSc student, Electronic Engineering · University of Padua",
+    "label": "MSc student in Electronic Engineering · University of Padua",
     "email": "mustafaraj.daniel2002@gmail.com",
     "phone": "+39 391 359 2913",
-    "summary": "I'm a second-year MSc student in Electronic Engineering at the University of Padua (average 28.3/30). I'm looking for a master's thesis starting in early 2027, or an internship, in photonics and optoelectronics, microelectronics or digital design. I got 30/30 in Microelectronics, Optoelectronic and Photovoltaic Devices and Organic and Molecular Electronics. I work with Verilog on a Tang Nano 9K FPGA, and I have a Bachelor's in Computer Engineering. I can work in a company or in a research lab, in Italy or elsewhere in Europe.",
+    "summary": "I'm a second-year MSc student in Electronic Engineering at the University of Padua, with a bachelor's degree in Computer Engineering. I'm seeking a thesis project from early 2027 or an internship in photonics and optoelectronics, microelectronics, or digital design. I use Verilog with a Tang Nano 9K FPGA and am open to opportunities in industry or research in Italy and across Europe.",
     "location": {
       "city": "Monselice",
       "region": "PD",
@@ -23,7 +23,7 @@
         "url": "https://github.com/danielmustafaraj02"
       }
     ],
-    "availability": "Master's thesis from early 2027"
+    "availability": "Thesis project from early 2027"
   },
   "education": [
     {
@@ -31,8 +31,7 @@
       "area": "Electronic Engineering (LM-29)",
       "studyType": "Master's Degree",
       "startDate": "2025",
-      "endDate": "2027",
-      "score": "28.3/30 average (60 CFU, in progress)"
+      "endDate": "2027"
     },
     {
       "institution": "Università degli Studi di Padova",
@@ -40,7 +39,6 @@
       "studyType": "Bachelor's Degree",
       "startDate": "2021",
       "endDate": "2025-07-22",
-      "score": "95/110",
       "courses": [
         "Thesis: L'equazione di Laplace (supervisor: Prof. Paolo Musolino)"
       ]
@@ -50,8 +48,7 @@
       "area": "Computer Science and Telecommunications",
       "studyType": "Technical High School Diploma",
       "startDate": "2016",
-      "endDate": "2021",
-      "score": "95/100"
+      "endDate": "2021"
     }
   ],
   "skills": [
@@ -119,7 +116,7 @@
     {
       "name": "Photonics & optoelectronics",
       "keywords": [
-        "Optoelectronic and Photovoltaic Devices (30/30)",
+        "Optoelectronic and photovoltaic devices",
         "Physics and Optics at the Nanoscale (in progress)",
         "Nanophotonics and Metasurfaces (in progress)"
       ]
@@ -127,9 +124,9 @@
     {
       "name": "Microelectronics & semiconductor devices",
       "keywords": [
-        "Microelectronics (30/30)",
-        "Organic and Molecular Electronics (30/30)",
-        "Nanoelectronics (29/30)"
+        "Microelectronics",
+        "Organic and molecular electronics",
+        "Nanoelectronics"
       ]
     },
     {
