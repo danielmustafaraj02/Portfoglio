@@ -12,9 +12,12 @@
   --grid: rgba(61, 240, 138, .08);
   --grid-axis: rgba(61, 240, 138, .2);
   --glow: rgba(61, 240, 138, .55);
+  --danger: #ff6b6b;
+  --warn: #f5c04a;
   --ease-out: cubic-bezier(.16, 1, .3, 1);
   --serif: 'IBM Plex Serif', Georgia, serif;
   --sans: 'IBM Plex Sans', system-ui, sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, monospace;
   color-scheme: dark;
 }
 
@@ -32,6 +35,8 @@
     --grid: rgba(11, 122, 59, .09);
     --grid-axis: rgba(11, 122, 59, .22);
     --glow: rgba(11, 122, 59, .3);
+    --danger: #c62828;
+    --warn: #a86a00;
     color-scheme: light;
   }
 }
@@ -188,6 +193,170 @@ strong { color: var(--heading); font-weight: 600; }
 .photo-dialog form { margin-top: .8rem; }
 .photo-dialog .btn { color: #f1ede4; border-color: rgba(241, 237, 228, .35); }
 
+/* ── Lock: access-code keypad in front of the contact details and CV ── */
+.link-button {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--accent);
+  font: inherit;
+  text-align: left;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.link-button:hover { text-decoration-thickness: 2px; }
+.link-button svg { width: 1em; height: 1em; flex-shrink: 0; }
+
+.lock-dialog {
+  margin: auto;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  width: min(21rem, calc(100vw - 2rem));
+  max-width: none;
+  max-height: calc(100svh - 1rem);
+  color: var(--text);
+}
+.lock-dialog::backdrop { background: rgba(5, 9, 7, .78); backdrop-filter: blur(3px); }
+.lock-dialog[open] { animation: dialog-in .32s var(--ease-out); }
+.lock-dialog[open]::backdrop { animation: fade-in .25s ease; }
+
+/* The faint graticule at the top ties the panel to the oscilloscope strip */
+.lock-panel {
+  position: relative;
+  padding: 1.6rem 1.35rem 1.3rem;
+  text-align: center;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background:
+    linear-gradient(to bottom, transparent, var(--surface) 10rem),
+    linear-gradient(to right, var(--grid) 1px, transparent 1px) center top / 24px 24px,
+    linear-gradient(to bottom, var(--grid) 1px, transparent 1px) center top / 24px 24px,
+    var(--surface);
+  box-shadow: 0 30px 60px -24px rgba(0, 0, 0, .6);
+  transition: border-color .3s, box-shadow .4s;
+}
+.lock-panel.is-granted { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent), 0 0 48px -10px var(--glow), 0 30px 60px -24px rgba(0, 0, 0, .6); }
+.lock-panel.is-denied { animation: shake .42s cubic-bezier(.36, .07, .19, .97); }
+.lock-panel h2 { margin-top: .55rem; font: 600 1.15rem/1.3 var(--serif); color: var(--heading); text-wrap: balance; }
+
+.lock-panel > .lock-icon {
+  width: 3.25rem;
+  height: 3.25rem;
+  overflow: visible;
+  color: var(--heading);
+  transition: color .3s, filter .3s;
+}
+.lock-icon .shackle { transform-box: fill-box; transform-origin: right bottom; }
+.is-denied > .lock-icon, .is-error > .lock-icon { color: var(--danger); }
+.is-granted > .lock-icon { color: var(--accent); filter: drop-shadow(0 0 10px var(--glow)); }
+.is-granted > .lock-icon .shackle { animation: shackle-open .8s var(--ease-out) forwards; }
+
+.lock-display { position: relative; display: flex; justify-content: center; gap: .6rem; margin-top: 1.15rem; overflow: hidden; }
+.lock-cell {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3.6rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  font: 500 1.9rem/1 var(--mono);
+  color: var(--accent);
+  text-shadow: 0 0 12px var(--glow);
+  transition: border-color .2s, color .2s, box-shadow .3s;
+}
+.lock-cell:not(:empty) { border-color: color-mix(in srgb, var(--accent) 45%, var(--border)); animation: cell-in .18s var(--ease-out); }
+.lock-cell.is-current::after {
+  content: "";
+  align-self: end;
+  width: 1.1rem;
+  height: 2px;
+  margin-bottom: .75rem;
+  background: var(--accent);
+  box-shadow: 0 0 6px var(--glow);
+  animation: blink 1.05s steps(1) infinite;
+}
+/* While verifying, a beam scans across the digits */
+.is-checking .lock-display::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--accent) 28%, transparent), transparent);
+  animation: scan .55s linear infinite;
+  pointer-events: none;
+}
+.is-denied .lock-cell { color: var(--danger); border-color: var(--danger); text-shadow: 0 0 12px color-mix(in srgb, var(--danger) 60%, transparent); }
+.is-granted .lock-cell { border-color: var(--accent); box-shadow: 0 0 18px -4px var(--glow); animation: cell-glow .45s var(--ease-out) both; }
+.is-granted .lock-cell:nth-child(2) { animation-delay: 70ms; }
+.is-granted .lock-cell:nth-child(3) { animation-delay: 140ms; }
+.is-granted .lock-cell:nth-child(4) { animation-delay: 210ms; }
+
+.lock-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .55rem;
+  min-height: 1rem;
+  margin-top: 1rem;
+  font: 500 .76rem/1 var(--mono);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  transition: color .2s;
+}
+/* Status LED: red while locked, amber while verifying, green once open */
+.led { width: .5rem; height: .5rem; flex-shrink: 0; border-radius: 50%; background: var(--danger); box-shadow: 0 0 6px var(--danger); opacity: .8; }
+.is-checking .led { background: var(--warn); box-shadow: 0 0 8px var(--warn); opacity: 1; animation: blink .36s steps(1) infinite; }
+.is-denied .led, .is-error .led { opacity: 1; animation: blink .18s steps(1) infinite; }
+.is-granted .led { background: var(--accent); box-shadow: 0 0 10px var(--accent); opacity: 1; }
+.is-denied .lock-status, .is-error .lock-status { color: var(--danger); }
+.is-granted .lock-status { color: var(--accent); }
+
+.keypad { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .5rem; margin-top: 1.2rem; }
+.keypad button {
+  display: grid;
+  place-items: center;
+  height: 3rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--heading);
+  font: 500 1.2rem/1 var(--mono);
+  cursor: pointer;
+  transition: border-color .15s, color .15s, box-shadow .15s, transform .1s;
+}
+.keypad button:hover { border-color: color-mix(in srgb, var(--accent) 55%, var(--border)); }
+.keypad button:active, .keypad button.is-lit { transform: scale(.95); border-color: var(--accent); color: var(--accent); box-shadow: 0 0 16px -3px var(--glow); }
+.keypad svg { width: 1.3rem; height: 1.3rem; }
+
+.lock-hint { margin-top: 1.1rem; font-size: .84rem; line-height: 1.5; color: var(--muted); text-wrap: balance; }
+.lock-close {
+  position: absolute;
+  top: .55rem;
+  right: .55rem;
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 0;
+  border-radius: 6px;
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color .15s;
+}
+.lock-close:hover { color: var(--heading); }
+.lock-close svg { width: 1.15rem; height: 1.15rem; }
+
+/* Email, phone and CV links power on once unlocked */
+.revealed { animation: rise-in .5s var(--ease-out) backwards; }
+
 /* ── Sections ── */
 .section {
   display: grid;
@@ -313,13 +482,23 @@ strong { color: var(--heading); font-weight: 600; }
 @keyframes wipe-in { from { clip-path: inset(-15% 100% -25% 0); } to { clip-path: inset(-15% -5% -25% 0); } }
 @keyframes blink { 50% { opacity: 0; } }
 @keyframes dialog-in { from { opacity: 0; transform: scale(.96); } }
+@keyframes cell-in { from { transform: scale(.88); } }
+@keyframes cell-glow { 45% { transform: scale(1.08); } }
+@keyframes scan { from { transform: translateX(-100%); } to { transform: translateX(100%); } }
+@keyframes shake { 20%, 60% { transform: translateX(-7px); } 40%, 80% { transform: translateX(7px); } }
+@keyframes shackle-open {
+  40% { transform: translateY(-3px); }
+  to { transform: translateY(-3px) scaleX(-1); }
+}
 
 ::view-transition-old(root), ::view-transition-new(root) { animation-duration: .26s; }
 
 @media (prefers-reduced-motion: reduce) {
-  .lang-switch, .avatar, .hero h1, .tagline, .status, .hero-links, .scope-screen { animation: fade-in .3s ease both; }
-  .photo-dialog[open], .photo-dialog[open]::backdrop { animation: fade-in .2s ease; }
-  .btn:active { transform: none; }
+  .lang-switch, .avatar, .hero h1, .tagline, .status, .hero-links, .scope-screen, .revealed { animation: fade-in .3s ease both; }
+  .photo-dialog[open], .photo-dialog[open]::backdrop, .lock-dialog[open], .lock-dialog[open]::backdrop { animation: fade-in .2s ease; }
+  .btn:active, .keypad button:active, .keypad button.is-lit { transform: none; }
+  .lock-panel.is-denied, .lock-cell, .lock-cell::after, .led, .is-checking .lock-display::after { animation: none !important; }
+  .is-granted > .lock-icon .shackle { animation: none; transform: translateY(-3px) scaleX(-1); }
 }
 
 .cert { display: inline-flex; flex-direction: column; gap: .5rem; max-width: 18rem; text-decoration: none; }

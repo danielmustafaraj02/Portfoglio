@@ -4,10 +4,14 @@ export type Lang = 'en' | 'it';
 export type Text = Record<Lang, string>;
 
 export const contact = {
-  email: 'mustafaraj.daniel2002@gmail.com',
-  phone: '+39 391 359 2913',
   github: 'https://github.com/danielmustafaraj02',
   linkedin: 'https://www.linkedin.com/in/daniel-mustafaraj-63b1b4247/',
+};
+
+// Never imported by the page: vite.config.ts encrypts it into the build, and the page decrypts it once the visitor enters the access code.
+export const privateContact = {
+  email: 'mustafaraj.daniel2002@gmail.com',
+  phone: '+39 391 359 2913',
 };
 
 // Course names stay in English in both languages: the programme is taught in English and the transcript uses these names.

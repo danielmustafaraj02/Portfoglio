@@ -1,12 +1,15 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { flushSync } from 'react-dom';
 import './portfolio.css';
+import { LockDialog, LockIcon } from './LockDialog';
 import { MatrixRain, ScopeTrace, Typewriter } from './motion';
 import { useReducedMotion, useSectionReveal } from './useMotion';
 import { bachelorCourses, contact, focusAreas, masterCourses, passedCfu, projects, skills, weightedAverage, type Lang } from './profile';
+import { restore, type Unlocked } from './vault';
 
 const CERTIFICATE_URL = 'https://matlabacademy.mathworks.com/progress/share/certificate.html?id=5c08de2a-54d0-4fae-b2cf-11abfab504c7&';
-const CV = { en: '/CV-Daniel-Mustafaraj.pdf', it: '/CV-Daniel-Mustafaraj-IT.pdf' };
+// Download names; the files themselves are decrypted in the browser once the visitor unlocks them.
+const CV_FILE = { en: 'CV-Daniel-Mustafaraj.pdf', it: 'CV-Daniel-Mustafaraj-IT.pdf' };
 
 const ui = {
   en: {
@@ -23,6 +26,9 @@ const ui = {
     emailMe: 'Email me',
     cvEn: 'CV (English)',
     cvIt: 'CV (Italian)',
+    unlock: 'Unlock contact & CV',
+    emailPhone: 'Email & phone',
+    unlockWithCode: 'Unlock with the access code',
     about: 'About',
     aboutP1: (avg: string) =>
       `I'm in the second year of the MSc in Electronic Engineering at the University of Padua. My average is ${avg}/30. Before that I did a Bachelor's in Computer Engineering, so I know both the hardware side and the software side.`,
@@ -77,6 +83,9 @@ const ui = {
     emailMe: 'Scrivimi',
     cvEn: 'CV (inglese)',
     cvIt: 'CV (italiano)',
+    unlock: 'Sblocca contatti e CV',
+    emailPhone: 'Email e telefono',
+    unlockWithCode: 'Sblocca con il codice di accesso',
     about: 'Chi sono',
     aboutP1: (avg: string) =>
       `Frequento il secondo anno della Laurea Magistrale in Ingegneria Elettronica all'Università di Padova. La mia media è ${avg}/30. Prima ho fatto la Laurea Triennale in Ingegneria Informatica, quindi conosco sia la parte hardware sia la parte software.`,
@@ -165,9 +174,26 @@ function Section({ id, title, children }: { id: string; title: string; children:
 export default function App() {
   const photo = useRef<HTMLDialogElement>(null);
   const [lang, setLang] = useState<Lang>(initialLang);
+  const [unlocked, setUnlocked] = useState<Unlocked | null>(null);
+  const [lockOpenedFrom, setLockOpenedFrom] = useState<'hero' | 'about' | null>(null);
+  const heroEmail = useRef<HTMLAnchorElement>(null);
+  const aboutEmail = useRef<HTMLAnchorElement>(null);
   const reduced = useReducedMotion();
   const t = ui[lang];
   useSectionReveal(reduced);
+
+  useEffect(() => {
+    restore().then(result => result && setUnlocked(result), () => { /* stay locked */ });
+  }, []);
+
+  const closeLock = (result: Unlocked | null) => {
+    const from = lockOpenedFrom;
+    setLockOpenedFrom(null);
+    if (!result) return;
+    flushSync(() => setUnlocked(result));
+    // The button that opened the lock is gone; move focus to the email link that replaced it.
+    (from === 'about' ? aboutEmail : heroEmail).current?.focus();
+  };
 
   const switchLang = (next: Lang) => {
     if (next === lang) return;
@@ -176,9 +202,8 @@ export default function App() {
     else setLang(next);
   };
   const avg = weightedAverage.toLocaleString(lang === 'it' ? 'it-IT' : 'en-GB', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
-  const cvButtons = lang === 'it'
-    ? [{ href: CV.it, label: t.cvIt }, { href: CV.en, label: t.cvEn }]
-    : [{ href: CV.en, label: t.cvEn }, { href: CV.it, label: t.cvIt }];
+  const cvLangs: Lang[] = lang === 'it' ? ['it', 'en'] : ['en', 'it'];
+  const cvLabel = { en: t.cvEn, it: t.cvIt };
 
   useEffect(() => {
     document.documentElement.lang = lang;
@@ -212,10 +237,24 @@ export default function App() {
           <nav className="hero-links" aria-label={t.navLabel}>
             <a href={contact.github} target="_blank" rel="noreferrer" className="btn btn-icon" aria-label="GitHub"><GitHubIcon /></a>
             <a href={contact.linkedin} target="_blank" rel="noreferrer" className="btn btn-icon" aria-label="LinkedIn"><LinkedInIcon /></a>
-            <a href={`mailto:${contact.email}`} className="btn"><MailIcon />{t.emailMe}</a>
-            {cvButtons.map((cv, i) => (
-              <a key={cv.href} href={cv.href} download className={i === 0 ? 'btn btn-primary' : 'btn'}><DownloadIcon />{cv.label}</a>
-            ))}
+            {unlocked ? (
+              <>
+                <a ref={heroEmail} href={`mailto:${unlocked.email}`} className="btn revealed"><MailIcon />{t.emailMe}</a>
+                {cvLangs.map((cv, i) => (
+                  <a
+                    key={cv}
+                    href={unlocked.cv[cv]}
+                    download={CV_FILE[cv]}
+                    className={i === 0 ? 'btn btn-primary revealed' : 'btn revealed'}
+                    style={{ animationDelay: `${(i + 1) * 80}ms` }}
+                  >
+                    <DownloadIcon />{cvLabel[cv]}
+                  </a>
+                ))}
+              </>
+            ) : (
+              <button type="button" className="btn btn-primary" onClick={() => setLockOpenedFrom('hero')}><LockIcon />{t.unlock}</button>
+            )}
           </nav>
         </div>
       </header>
@@ -227,14 +266,25 @@ export default function App() {
         <form method="dialog"><button className="btn">{t.close}</button></form>
       </dialog>
 
+      <LockDialog lang={lang} open={lockOpenedFrom !== null} linkedin={contact.linkedin} onClose={closeLock} />
+
       <main>
         <Section id="about" title={t.about}>
           <p>{t.aboutP1(avg)}</p>
           <p>{t.aboutP2}</p>
           <dl className="facts">
             <div><dt>{t.basedIn}</dt><dd>{t.location}</dd></div>
-            <div><dt>Email</dt><dd><a href={`mailto:${contact.email}`}>{contact.email}</a></dd></div>
-            <div><dt>{t.phone}</dt><dd><a href={`tel:${contact.phone.replace(/\s/g, '')}`}>{contact.phone}</a></dd></div>
+            {unlocked ? (
+              <>
+                <div className="revealed"><dt>Email</dt><dd><a ref={aboutEmail} href={`mailto:${unlocked.email}`}>{unlocked.email}</a></dd></div>
+                <div className="revealed"><dt>{t.phone}</dt><dd><a href={`tel:${unlocked.phone.replace(/\s/g, '')}`}>{unlocked.phone}</a></dd></div>
+              </>
+            ) : (
+              <div>
+                <dt>{t.emailPhone}</dt>
+                <dd><button type="button" className="link-button" onClick={() => setLockOpenedFrom('about')}><LockIcon />{t.unlockWithCode}</button></dd>
+              </div>
+            )}
             <div><dt>{t.languages}</dt><dd>{t.languagesValue}</dd></div>
             <div><dt>{t.availability}</dt><dd>{t.availabilityValue}</dd></div>
           </dl>
@@ -361,7 +411,10 @@ export default function App() {
       </main>
 
       <footer className="footer">
-        <p>© {new Date().getFullYear()} Daniel Mustafaraj · <a href={CV[lang]} download>{t.downloadCv}</a></p>
+        <p>
+          © {new Date().getFullYear()} Daniel Mustafaraj
+          {unlocked && <> · <a href={unlocked.cv[lang]} download={CV_FILE[lang]}>{t.downloadCv}</a></>}
+        </p>
       </footer>
     </div>
     </>
