@@ -330,7 +330,7 @@ export default function App() {
             <li>
               <span className="when">2021 – 2025</span>
               <div>
-                <h3>{t.bsc} <span className="badge">95/110</span></h3>
+                <h3>{t.bsc}</h3>
                 <p className="institution"><img className="logo" src="/logo-unipd.svg" alt="" />{t.department}</p>
                 <p>
                   {t.thesis}: <a href="https://thesis.unipd.it/handle/20.500.12608/89363" target="_blank" rel="noreferrer" lang="it"><em>L'equazione di Laplace</em></a>{' '}
