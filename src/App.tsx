@@ -43,6 +43,16 @@ const ui = {
     languagesValue: 'Italian (native), English (B2)',
     lookingFor: "What I'm looking for",
     lookingForIntro: "I want to do my master's thesis (starting at the beginning of 2027) or an internship in one of these areas. It can be in a company or in a research lab, in Italy or in Europe:",
+    thesisDirection: 'Thesis direction',
+    thesisDirectionIntro: 'The shortlist points to a few connected themes. I want to choose one focused research question with a supervisor, then build the skills and evidence around it.',
+    thesisThemes: [
+      { title: 'Photonics & optical sensors', text: 'Characterise a detector or optical sensor, connect device physics to measurements, and analyse the results.' },
+      { title: 'Microelectronics & devices', text: 'Study how semiconductor or read-out circuits behave, then validate the design with careful simulation and lab measurements.' },
+      { title: 'Digital design for instrumentation', text: 'Use FPGA logic to acquire, process or validate signals from sensors and scientific instruments.' },
+    ],
+    thesisNext: 'Next step: compare the shortlisted roles with a UniPD supervisor and agree on scope, timeline and access to lab equipment.',
+    ideaLabel: 'Personal prototype idea · planned',
+    projectBudget: 'Start with the parts already available; buy only the sensor and display after checking what you can borrow.',
     education: 'Education',
     msc: 'MSc Electronic Engineering',
     inProgress: 'In progress',
@@ -100,6 +110,16 @@ const ui = {
     languagesValue: 'Italiano (madrelingua), inglese (B2)',
     lookingFor: 'Cosa cerco',
     lookingForIntro: "Voglio fare la tesi magistrale (da inizio 2027) o un tirocinio in uno di questi ambiti. Può essere in un'azienda o in un laboratorio di ricerca, in Italia o in Europa:",
+    thesisDirection: 'Direzione per la tesi',
+    thesisDirectionIntro: 'Le offerte individuano alcuni temi collegati. Vorrei scegliere una domanda di ricerca concreta con un relatore, poi costruire competenze e risultati intorno a quella.',
+    thesisThemes: [
+      { title: 'Fotonica e sensori ottici', text: 'Caratterizzare un rivelatore o un sensore ottico, collegare la fisica del dispositivo alle misure e analizzare i risultati.' },
+      { title: 'Microelettronica e dispositivi', text: 'Studiare il comportamento di dispositivi a semiconduttore o circuiti di lettura, validando il progetto con simulazioni e misure di laboratorio.' },
+      { title: 'Progettazione digitale per la strumentazione', text: 'Usare la logica FPGA per acquisire, elaborare o validare segnali da sensori e strumenti scientifici.' },
+    ],
+    thesisNext: 'Prossimo passo: confrontare le offerte selezionate con un relatore UniPD e concordare obiettivo, tempi e accesso alla strumentazione.',
+    ideaLabel: 'Idea di prototipo personale · in programma',
+    projectBudget: 'Partire dai componenti già disponibili; acquistare solo sensore e display dopo aver verificato cosa si può prendere in prestito.',
     education: 'Istruzione',
     msc: 'Laurea Magistrale in Ingegneria Elettronica',
     inProgress: 'In corso',
@@ -302,6 +322,16 @@ export default function App() {
           </dl>
         </Section>
 
+        <Section id="thesis" title={t.thesisDirection}>
+          <p>{t.thesisDirectionIntro}</p>
+          <ul className="thesis-themes">
+            {t.thesisThemes.map(theme => (
+              <li key={theme.title}><h3>{theme.title}</h3><p>{theme.text}</p></li>
+            ))}
+          </ul>
+          <p className="thesis-next">{t.thesisNext}</p>
+        </Section>
+
         <Section id="education" title={t.education}>
           <ol className="timeline">
             <li>
@@ -368,12 +398,35 @@ export default function App() {
             <ul className="projects">
               {projects.map(p => (
                 <li key={p.title.en}>
-                  <h3>{p.link ? <a href={p.link} target="_blank" rel="noreferrer">{p.title[lang]}</a> : p.title[lang]}<span className="when">{p.when}</span></h3>
+                  <h3>{p.link ? <a href={p.link} target="_blank" rel="noreferrer">{p.title[lang]}</a> : p.title[lang]}<span className="project-meta"><span className="when">{p.when}</span>{p.status && <span className="project-status">{p.status[lang]}</span>}</span></h3>
                   <p>{p.summary[lang]}</p>
+                  {p.workflow && (
+                    <ol className="project-workflow">
+                      {p.workflow.map(step => (
+                        <li key={step.title.en}>
+                          <h4>{step.title[lang]}</h4>
+                          <p>{step.detail[lang]}</p>
+                        </li>
+                      ))}
+                    </ol>
+                  )}
+                  {p.note && <p className="project-note">{p.note[lang]}</p>}
                   <p className="tags">{p.tags.join(' · ')}</p>
                 </li>
               ))}
             </ul>
+            <article className="idea-card">
+              <div className="idea-card-heading"><span className="idea-kicker">{t.ideaLabel}</span><span className="idea-status">CO₂ · AIR · NOW PLAYING</span></div>
+              <h3>{lang === 'en' ? 'Room air monitor & music display' : 'Monitor dell’aria e display musicale'}</h3>
+              <p>{lang === 'en' ? 'A small desk device that measures room CO₂ and uses an LED to suggest when to open a window. A TFT screen can show the current Spotify track as a later add-on.' : 'Un piccolo dispositivo da scrivania misura la CO₂ e usa un LED per suggerire quando aprire la finestra. Il display TFT può mostrare il brano Spotify come estensione successiva.'}</p>
+              <div className="idea-grid">
+                <div><span className="idea-step">01 · CORE</span><p>{lang === 'en' ? 'Arduino Nano + SCD40/SCD41 NDIR CO₂ sensor + RGB LED. Log readings over USB to a laptop and set a clear ventilation threshold.' : 'Arduino Nano + sensore CO₂ NDIR SCD40/SCD41 + LED RGB. Registra le letture via USB sul computer e imposta una soglia chiara per il ricambio d’aria.'}</p></div>
+                <div><span className="idea-step">02 · DISPLAY</span><p>{lang === 'en' ? 'Reuse the Raspberry Pi and add a small TFT only if needed. A lightweight Python dashboard can show CO₂ history, status and Spotify playback.' : 'Riutilizza il Raspberry Pi e aggiungi un piccolo TFT solo se serve. Una dashboard Python essenziale può mostrare storico CO₂, stato e riproduzione Spotify.'}</p></div>
+                <div><span className="idea-step">03 · MAKE IT SMART</span><p>{lang === 'en' ? 'Add a local web dashboard, CSV export and calibration notes. Keep Spotify integration read-only and optional; the air-quality alert works without internet.' : 'Aggiungi una dashboard web locale, esportazione CSV e note di calibrazione. L’integrazione Spotify resta in sola lettura e facoltativa; l’avviso aria funziona anche senza internet.'}</p></div>
+              </div>
+              <p className="idea-budget"><strong>{lang === 'en' ? 'Keep costs down:' : 'Contenere i costi:'}</strong> {t.projectBudget} {lang === 'en' ? 'The CO₂ sensor is the main new cost; use a genuine NDIR sensor for CO₂, not a cheap VOC/“eCO₂” sensor.' : 'Il sensore CO₂ è il costo principale; scegli un vero sensore NDIR, non un economico sensore VOC/“eCO₂”.'}</p>
+              <p className="tags">Arduino · NDIR CO₂ · Raspberry Pi · TFT · Python · Spotify Web API</p>
+            </article>
           </Section>
         )}
 
