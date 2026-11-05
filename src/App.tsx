@@ -322,16 +322,6 @@ export default function App() {
           </dl>
         </Section>
 
-        <Section id="thesis" title={t.thesisDirection}>
-          <p>{t.thesisDirectionIntro}</p>
-          <ul className="thesis-themes">
-            {t.thesisThemes.map(theme => (
-              <li key={theme.title}><h3>{theme.title}</h3><p>{theme.text}</p></li>
-            ))}
-          </ul>
-          <p className="thesis-next">{t.thesisNext}</p>
-        </Section>
-
         <Section id="education" title={t.education}>
           <ol className="timeline">
             <li>
@@ -392,43 +382,6 @@ export default function App() {
             </li>
           </ol>
         </Section>
-
-        {projects.length > 0 && (
-          <Section id="projects" title={t.projects}>
-            <ul className="projects">
-              {projects.map(p => (
-                <li key={p.title.en}>
-                  <h3>{p.link ? <a href={p.link} target="_blank" rel="noreferrer">{p.title[lang]}</a> : p.title[lang]}<span className="project-meta"><span className="when">{p.when}</span>{p.status && <span className="project-status">{p.status[lang]}</span>}</span></h3>
-                  <p>{p.summary[lang]}</p>
-                  {p.workflow && (
-                    <ol className="project-workflow">
-                      {p.workflow.map(step => (
-                        <li key={step.title.en}>
-                          <h4>{step.title[lang]}</h4>
-                          <p>{step.detail[lang]}</p>
-                        </li>
-                      ))}
-                    </ol>
-                  )}
-                  {p.note && <p className="project-note">{p.note[lang]}</p>}
-                  <p className="tags">{p.tags.join(' · ')}</p>
-                </li>
-              ))}
-            </ul>
-            <article className="idea-card">
-              <div className="idea-card-heading"><span className="idea-kicker">{t.ideaLabel}</span><span className="idea-status">CO₂ · AIR · NOW PLAYING</span></div>
-              <h3>{lang === 'en' ? 'Room air monitor & music display' : 'Monitor dell’aria e display musicale'}</h3>
-              <p>{lang === 'en' ? 'A small desk device that measures room CO₂ and uses an LED to suggest when to open a window. A TFT screen can show the current Spotify track as a later add-on.' : 'Un piccolo dispositivo da scrivania misura la CO₂ e usa un LED per suggerire quando aprire la finestra. Il display TFT può mostrare il brano Spotify come estensione successiva.'}</p>
-              <div className="idea-grid">
-                <div><span className="idea-step">01 · CORE</span><p>{lang === 'en' ? 'Arduino Nano + SCD40/SCD41 NDIR CO₂ sensor + RGB LED. Log readings over USB to a laptop and set a clear ventilation threshold.' : 'Arduino Nano + sensore CO₂ NDIR SCD40/SCD41 + LED RGB. Registra le letture via USB sul computer e imposta una soglia chiara per il ricambio d’aria.'}</p></div>
-                <div><span className="idea-step">02 · DISPLAY</span><p>{lang === 'en' ? 'Reuse the Raspberry Pi and add a small TFT only if needed. A lightweight Python dashboard can show CO₂ history, status and Spotify playback.' : 'Riutilizza il Raspberry Pi e aggiungi un piccolo TFT solo se serve. Una dashboard Python essenziale può mostrare storico CO₂, stato e riproduzione Spotify.'}</p></div>
-                <div><span className="idea-step">03 · MAKE IT SMART</span><p>{lang === 'en' ? 'Add a local web dashboard, CSV export and calibration notes. Keep Spotify integration read-only and optional; the air-quality alert works without internet.' : 'Aggiungi una dashboard web locale, esportazione CSV e note di calibrazione. L’integrazione Spotify resta in sola lettura e facoltativa; l’avviso aria funziona anche senza internet.'}</p></div>
-              </div>
-              <p className="idea-budget"><strong>{lang === 'en' ? 'Keep costs down:' : 'Contenere i costi:'}</strong> {t.projectBudget} {lang === 'en' ? 'The CO₂ sensor is the main new cost; use a genuine NDIR sensor for CO₂, not a cheap VOC/“eCO₂” sensor.' : 'Il sensore CO₂ è il costo principale; scegli un vero sensore NDIR, non un economico sensore VOC/“eCO₂”.'}</p>
-              <p className="tags">Arduino · NDIR CO₂ · Raspberry Pi · TFT · Python · Spotify Web API</p>
-            </article>
-          </Section>
-        )}
 
         <Section id="skills" title={t.skills}>
           <dl className="skills">
