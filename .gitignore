@@ -26,6 +26,9 @@ dist-ssr
 # Local-only: never commit, never deploy
 private/
 jobs.html
+jobs-all.html
 jobs_data.json
+shortlist.json
+prepare.html
 build_jobs_page.py
 __pycache__/

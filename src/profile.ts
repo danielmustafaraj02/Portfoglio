@@ -128,7 +128,61 @@ export const skills: { group: Text; items: Text[] }[] = [
   },
 ];
 
-export type Project = { title: Text; when: string; summary: Text; tags: string[]; link?: string };
+export type Project = {
+  title: Text;
+  when: string;
+  summary: Text;
+  tags: string[];
+  link?: string;
+  status?: Text;
+  workflow?: { title: Text; detail: Text }[];
+  note?: Text;
+};
 
-// Add projects here; the Projects section appears as soon as this list is not empty.
-export const projects: Project[] = [];
+// Planned work stays clearly labeled until it has been built or agreed with a supervisor.
+export const projects: Project[] = [
+  {
+    title: { en: 'Master’s thesis search · shortlist to proposal', it: 'Ricerca tesi magistrale · dalla selezione alla proposta' },
+    when: '2026–27',
+    status: { en: 'Planning', it: 'In pianificazione' },
+    summary: {
+      en: 'A focused plan to turn the current openings into a thesis topic that fits my strongest evidence: optoelectronics, lab measurements, photonics and FPGA design.',
+      it: 'Un piano concreto per trasformare le offerte attuali in un tema di tesi coerente con i miei punti più forti: optoelettronica, misure di laboratorio, fotonica e progettazione FPGA.',
+    },
+    tags: ['Thesis planning', 'Photonics', 'Sensors', 'FPGA'],
+    workflow: [
+      {
+        title: { en: '1 · Choose two tracks', it: '1 · Scegliere due direzioni' },
+        detail: {
+          en: 'Primary: optical and image-sensor characterization, matching ESA Opto-Electronics, imec alumina photonics/read-out ICs, Bosch optical sensors and TNO fibre sensing. Second: FPGA and digital verification, matching ESA Microelectronics, ADI and Leonardo RFSoC.',
+          it: 'Prima scelta: caratterizzazione di sensori ottici e d’immagine, in linea con ESA Opto-Electronics, fotonica su allumina e read-out IC di imec, sensori Bosch e sensori in fibra TNO. Seconda: FPGA e verifica digitale, in linea con ESA Microelectronics, ADI e Leonardo RFSoC.',
+        },
+      },
+      {
+        title: { en: '2 · Build evidence with what I have', it: '2 · Creare prove con ciò che ho' },
+        detail: {
+          en: 'Prioritise one shortlist-matched demo at a time: a cocotb-verified UART on the Tang Nano 9K (no parts cost), then a photodiode optical link using the university lab instruments. Keep the room CO₂ monitor as a small extra for sensing, logging and software.',
+          it: 'Dare priorità a una dimostrazione alla volta: UART verificata con cocotb sulla Tang Nano 9K (senza acquistare componenti), poi un collegamento ottico con fotodiodo usando gli strumenti del laboratorio universitario. Il monitor CO₂ per la stanza resta un progetto aggiuntivo per sensori, raccolta dati e software.',
+        },
+      },
+      {
+        title: { en: '3 · Confirm the thesis fit', it: '3 · Verificare che sia una tesi' },
+        detail: {
+          en: 'Discuss a focused question with a UniPD supervisor before accepting. Ask the host about thesis eligibility, co-supervision, duration and lab access; several roles are internships unless this is agreed explicitly.',
+          it: 'Concordare una domanda di ricerca circoscritta con un relatore UniPD prima di accettare. Chiedere all’ente ospitante se è possibile fare la tesi, come funziona la co-supervisione, la durata e l’accesso al laboratorio: diversi ruoli sono tirocini, salvo accordi espliciti.',
+        },
+      },
+      {
+        title: { en: '4 · Apply with a clear proposal', it: '4 · Candidarsi con una proposta chiara' },
+        detail: {
+          en: 'Tailor the CV and motivation letter to each topic, show one measured or verified result, then prepare for the matching interview track. Check each posting again for current status and deadlines before applying.',
+          it: 'Adattare CV e lettera motivazionale a ogni tema, mostrare un risultato misurato o verificato e prepararsi al colloquio della relativa area. Ricontrollare stato e scadenze dell’offerta prima di candidarsi.',
+        },
+      },
+    ],
+    note: {
+      en: 'Keep spending low: start with the existing Arduino Nano, Raspberry Pi and university lab equipment. Add a genuine NDIR CO₂ sensor for the LED ventilation alert; add a TFT and Spotify display only if a screen is already available or borrowed.',
+      it: 'Contenere le spese: partire da Arduino Nano, Raspberry Pi e strumenti del laboratorio universitario già disponibili. Aggiungere un vero sensore CO₂ NDIR per l’avviso LED; TFT e Spotify solo se si può riutilizzare o prendere in prestito uno schermo.',
+    },
+  },
+];
