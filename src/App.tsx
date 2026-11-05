@@ -4,7 +4,7 @@ import './portfolio.css';
 import { LockDialog, LockIcon } from './LockDialog';
 import { MatrixRain, ScopeTrace, Typewriter } from './motion';
 import { useReducedMotion, useSectionReveal } from './useMotion';
-import { bachelorCourses, contact, focusAreas, masterCourses, passedCfu, projects, skills, weightedAverage, type Lang } from './profile';
+import { bachelorCourses, contact, masterCourses, passedCfu, skills, weightedAverage, type Lang } from './profile';
 import { restore, type Unlocked } from './vault';
 
 const CERTIFICATE_URL = 'https://matlabacademy.mathworks.com/progress/share/certificate.html?id=5c08de2a-54d0-4fae-b2cf-11abfab504c7&';
@@ -290,18 +290,6 @@ export default function App() {
           </dl>
         </Section>
 
-        <Section id="focus" title={t.lookingFor}>
-          <p>{t.lookingForIntro}</p>
-          <dl className="focus">
-            {focusAreas.map(area => (
-              <div key={area.title.en}>
-                <dt>{area.title[lang]}</dt>
-                <dd>{area.evidence[lang]}</dd>
-              </div>
-            ))}
-          </dl>
-        </Section>
-
         <Section id="education" title={t.education}>
           <ol className="timeline">
             <li>
@@ -362,20 +350,6 @@ export default function App() {
             </li>
           </ol>
         </Section>
-
-        {projects.length > 0 && (
-          <Section id="projects" title={t.projects}>
-            <ul className="projects">
-              {projects.map(p => (
-                <li key={p.title.en}>
-                  <h3>{p.link ? <a href={p.link} target="_blank" rel="noreferrer">{p.title[lang]}</a> : p.title[lang]}<span className="when">{p.when}</span></h3>
-                  <p>{p.summary[lang]}</p>
-                  <p className="tags">{p.tags.join(' · ')}</p>
-                </li>
-              ))}
-            </ul>
-          </Section>
-        )}
 
         <Section id="skills" title={t.skills}>
           <dl className="skills">
