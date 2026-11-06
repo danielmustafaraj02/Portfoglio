@@ -134,92 +134,127 @@ export type Project = {
   summary: Text;
   tags: string[];
   link?: string;
+  image?: string;
   status?: Text;
   workflow?: { title: Text; detail: Text }[];
   note?: Text;
+  setup?: { title: Text; steps: Text[] }[];
+  code?: { label: Text; lang: string; src: string }[];
 };
 
-// Planned work stays clearly labeled until it has been built or agreed with a supervisor.
 export const projects: Project[] = [
   {
-    title: { en: 'Room CO₂ alert monitor', it: 'Monitoraggio CO₂ ambientale' },
+    title: { en: 'Room CO\u2082 alert monitor', it: 'Monitoraggio CO\u2082 ambientale' },
     when: '2025',
     status: { en: 'Completed', it: 'Completato' },
+    image: '/projects/co2-monitor.png',
     summary: {
-      en: 'A real-time indoor air-quality monitor that reads CO₂, temperature and humidity from an SCD41 sensor and shows the values on the desktop wallpaper with an instant red alert when ventilation is needed.',
-      it: 'Un monitor in tempo reale della qualità dell’aria indoor che legge CO₂, temperatura e umidità da un sensore SCD41 e mostra i valori sul desktop con un allarme rosso immediato quando serve ventilare.',
+      en: 'A real-time indoor air-quality monitor that reads CO\u2082, temperature and humidity from an SCD41 sensor and shows the values on the desktop wallpaper with an instant red alert when ventilation is needed.',
+      it: 'Un monitor in tempo reale della qualit\u00e0 dell\u2019aria indoor che legge CO\u2082, temperatura e umidit\u00e0 da un sensore SCD41 e mostra i valori sul desktop con un allarme rosso immediato quando serve ventilare.',
     },
     tags: ['Arduino Nano', 'SCD41', 'Python', 'GNOME', 'Air quality'],
     workflow: [
       {
-        title: { en: '1 · Sense the room', it: '1 · Misurare la stanza' },
+        title: { en: '1 \u00b7 Sense the room', it: '1 \u00b7 Misurare la stanza' },
         detail: {
-          en: 'The Arduino Nano reads the SCD41 sensor over I2C and prints the measured CO₂, temperature and humidity values every few seconds through the serial port.',
-          it: 'L’Arduino Nano legge il sensore SCD41 via I2C e invia ogni pochi secondi i valori di CO₂, temperatura e umidità tramite seriale.',
+          en: 'The Arduino Nano reads the SCD41 sensor over I2C and sends CO\u2082, temperature and humidity every 5 s through the serial port at 115\u202f200 baud.',
+          it: 'L\u2019Arduino Nano legge il sensore SCD41 via I2C e invia ogni 5\u00a0s i valori di CO\u2082, temperatura e umidit\u00e0 tramite seriale a 115\u202f200 baud.',
         },
       },
       {
-        title: { en: '2 · Turn data into a live alert', it: '2 · Trasformare i dati in un allarme live' },
+        title: { en: '2 \u00b7 Turn data into a live alert', it: '2 \u00b7 Trasformare i dati in un allarme live' },
         detail: {
-          en: 'A Python service parses the serial stream, updates a wallpaper with the latest values, and triggers a desktop notification when the CO₂ threshold is crossed.',
-          it: 'Un servizio Python analizza il flusso seriale, aggiorna uno sfondo con i valori più recenti e invia una notifica desktop quando viene superata la soglia di CO₂.',
+          en: 'A Python service parses the serial stream, renders a wallpaper image with the latest values and a 24-hour chart, and fires a desktop notification when the CO\u2082 threshold is crossed.',
+          it: 'Un servizio Python analizza il flusso seriale, genera un\u2019immagine di sfondo con i valori aggiornati e un grafico delle ultime 24\u00a0ore, e invia una notifica desktop quando viene superata la soglia di CO\u2082.',
         },
       },
       {
-        title: { en: '3 · Keep the system useful', it: '3 · Mantenere il sistema utile' },
+        title: { en: '3 \u00b7 Keep the system useful', it: '3 \u00b7 Mantenere il sistema utile' },
         detail: {
-          en: 'The script saves the original background, restores it when the service stops, reconnects automatically if the board is unplugged, and stays lightweight enough to run in the background.',
-          it: 'Lo script salva lo sfondo originale, lo ripristina quando il servizio si ferma, si riconnette automaticamente se la scheda viene scollegata e resta leggero abbastanza da girare in background.',
+          en: 'The script saves the original wallpaper and restores it on exit, reconnects automatically if the board is unplugged, and persists a 24-hour history to a JSON file so the chart survives restarts.',
+          it: 'Lo script salva lo sfondo originale e lo ripristina all\u2019uscita, si riconnette automaticamente se la scheda viene scollegata, e salva la cronologia delle ultime 24\u00a0ore in un file JSON cos\u00ec il grafico sopravvive ai riavvii.',
         },
       },
     ],
     note: {
-      en: 'This is useful because high CO₂ levels reduce focus, comfort and air quality. A simple visual warning makes it easy to ventilate a room before the air becomes stale or unhealthy.',
-      it: 'È utile perché alti livelli di CO₂ riducono concentrazione, comfort e qualità dell’aria. Un semplice avviso visivo rende facile ventilare la stanza prima che l’aria diventi stantia o poco salutare.',
+      en: 'High CO\u2082 levels reduce focus, comfort and air quality. A simple visual warning on the wallpaper makes it easy to ventilate before the air becomes stale.',
+      it: 'Alti livelli di CO\u2082 riducono concentrazione, comfort e qualit\u00e0 dell\u2019aria. Un semplice avviso visivo sullo sfondo rende facile ventilare prima che l\u2019aria diventi stantia.',
     },
-  },
-  {
-    title: { en: 'Master’s thesis search · shortlist to proposal', it: 'Ricerca tesi magistrale · dalla selezione alla proposta' },
-    when: '2026–27',
-    status: { en: 'Planning', it: 'In pianificazione' },
-    summary: {
-      en: 'A focused plan to turn the current openings into a thesis topic that fits my strongest evidence: optoelectronics, lab measurements, photonics and FPGA design.',
-      it: 'Un piano concreto per trasformare le offerte attuali in un tema di tesi coerente con i miei punti più forti: optoelettronica, misure di laboratorio, fotonica e progettazione FPGA.',
-    },
-    tags: ['Thesis planning', 'Photonics', 'Sensors', 'FPGA'],
-    workflow: [
+    setup: [
       {
-        title: { en: '1 · Choose two tracks', it: '1 · Scegliere due direzioni' },
-        detail: {
-          en: 'Primary: optical and image-sensor characterization, matching ESA Opto-Electronics, imec alumina photonics/read-out ICs, Bosch optical sensors and TNO fibre sensing. Second: FPGA and digital verification, matching ESA Microelectronics, ADI and Leonardo RFSoC.',
-          it: 'Prima scelta: caratterizzazione di sensori ottici e d’immagine, in linea con ESA Opto-Electronics, fotonica su allumina e read-out IC di imec, sensori Bosch e sensori in fibra TNO. Seconda: FPGA e verifica digitale, in linea con ESA Microelectronics, ADI e Leonardo RFSoC.',
-        },
+        title: { en: 'Hardware', it: 'Hardware' },
+        steps: [
+          { en: 'Arduino Nano \u2192 SCD41: VIN\u21925V  GND\u2192GND  SDA\u2192A4  SCL\u2192A5', it: 'Arduino Nano \u2192 SCD41: VIN\u21925V  GND\u2192GND  SDA\u2192A4  SCL\u2192A5' },
+          { en: 'Connect the Nano to the PC via USB (shows up as /dev/ttyUSB0)', it: 'Collegare il Nano al PC via USB (appare come /dev/ttyUSB0)' },
+          { en: 'Flash scd41_nano.ino with the Sensirion I2C SCD4x library installed in the Arduino IDE', it: 'Caricare scd41_nano.ino con la libreria Sensirion I2C SCD4x installata nell\u2019IDE Arduino' },
+        ],
       },
       {
-        title: { en: '2 · Build evidence with what I have', it: '2 · Creare prove con ciò che ho' },
-        detail: {
-          en: 'Prioritise one shortlist-matched demo at a time: a cocotb-verified UART on the Tang Nano 9K (no parts cost), then a photodiode optical link using the university lab instruments. Keep the room CO₂ monitor as a small extra for sensing, logging and software.',
-          it: 'Dare priorità a una dimostrazione alla volta: UART verificata con cocotb sulla Tang Nano 9K (senza acquistare componenti), poi un collegamento ottico con fotodiodo usando gli strumenti del laboratorio universitario. Il monitor CO₂ per la stanza resta un progetto aggiuntivo per sensori, raccolta dati e software.',
-        },
-      },
-      {
-        title: { en: '3 · Confirm the thesis fit', it: '3 · Verificare che sia una tesi' },
-        detail: {
-          en: 'Discuss a focused question with a UniPD supervisor before accepting. Ask the host about thesis eligibility, co-supervision, duration and lab access; several roles are internships unless this is agreed explicitly.',
-          it: 'Concordare una domanda di ricerca circoscritta con un relatore UniPD prima di accettare. Chiedere all’ente ospitante se è possibile fare la tesi, come funziona la co-supervisione, la durata e l’accesso al laboratorio: diversi ruoli sono tirocini, salvo accordi espliciti.',
-        },
-      },
-      {
-        title: { en: '4 · Apply with a clear proposal', it: '4 · Candidarsi con una proposta chiara' },
-        detail: {
-          en: 'Tailor the CV and motivation letter to each topic, show one measured or verified result, then prepare for the matching interview track. Check each posting again for current status and deadlines before applying.',
-          it: 'Adattare CV e lettera motivazionale a ogni tema, mostrare un risultato misurato o verificato e prepararsi al colloquio della relativa area. Ricontrollare stato e scadenze dell’offerta prima di candidarsi.',
-        },
+        title: { en: 'Software', it: 'Software' },
+        steps: [
+          { en: 'pip install pyserial pillow', it: 'pip install pyserial pillow' },
+          { en: 'python co2_monitor.py  (or add as a systemd user service for autostart)', it: 'python co2_monitor.py  (oppure aggiungere come servizio systemd utente per l\u2019avvio automatico)' },
+          { en: 'Thresholds: green < 1000\u00a0ppm \u00b7 orange 1000\u20132000 \u00b7 red \u2265\u20092000 \u2014 edit CO2_SAFE / CO2_WARNING at the top of the script', it: 'Soglie: verde < 1000\u00a0ppm \u00b7 arancione 1000\u20132000 \u00b7 rosso \u2265\u20092000 \u2014 modificare CO2_SAFE / CO2_WARNING in cima allo script' },
+        ],
       },
     ],
-    note: {
-      en: 'Keep spending low: start with the existing Arduino Nano, Raspberry Pi and university lab equipment. Add a genuine NDIR CO₂ sensor for the LED ventilation alert; add a TFT and Spotify display only if a screen is already available or borrowed.',
-      it: 'Contenere le spese: partire da Arduino Nano, Raspberry Pi e strumenti del laboratorio universitario già disponibili. Aggiungere un vero sensore CO₂ NDIR per l’avviso LED; TFT e Spotify solo se si può riutilizzare o prendere in prestito uno schermo.',
-    },
+    code: [
+      {
+        label: { en: 'Arduino sketch (scd41_nano.ino)', it: 'Sketch Arduino (scd41_nano.ino)' },
+        lang: 'cpp',
+        src: `#include <SensirionI2cScd4x.h>
+#include <Wire.h>
+
+SensirionI2cScd4x sensor;
+
+void setup() {
+  Serial.begin(115200);
+  Wire.begin();
+  sensor.begin(Wire, SCD41_I2C_ADDR_62);
+  sensor.wakeUp();
+  sensor.stopPeriodicMeasurement();
+  sensor.reinit();
+  sensor.startPeriodicMeasurement();
+}
+
+void loop() {
+  delay(5000);
+  bool ready = false;
+  sensor.getDataReadyStatus(ready);
+  if (!ready) return;
+
+  uint16_t co2; float temp, hum;
+  sensor.readMeasurement(co2, temp, hum);
+  Serial.print("CO2: ");   Serial.print(co2);  Serial.println(" ppm");
+  Serial.print("Temperature: "); Serial.println(temp);
+  Serial.print("Humidity: ");    Serial.println(hum);
+  Serial.println();
+}`,
+      },
+      {
+        label: { en: 'Python service \u2014 key logic (co2_monitor.py)', it: 'Servizio Python \u2014 logica principale (co2_monitor.py)' },
+        lang: 'python',
+        src: `CO2_SAFE    = 1000   # ppm \u2192 green
+CO2_WARNING = 2000   # ppm \u2192 red
+
+def level_color(val):
+    if val >= CO2_WARNING: return ACCENT_ALERT   # red
+    if val >= CO2_SAFE:    return ACCENT_WARN    # orange
+    return ACCENT_SAFE                           # green
+
+def render_wallpaper(co2, temp, humidity, level, readings):
+    img  = Image.new("RGB", (1920, 1080), BG)
+    draw = ImageDraw.Draw(img)
+    accent = [ACCENT_SAFE, ACCENT_WARN, ACCENT_ALERT][level]
+    draw.text((960, 330), str(co2), fill=accent, font=F_BIG, anchor="mm")
+    draw.text((960, 440), "ppm CO\u2082", fill=TEXT_DIM, font=F_UNIT, anchor="mm")
+    draw_graph(draw, readings, ...)   # 24-hour sparkline
+    img.save(WALLPAPER_FILE)
+    set_wallpaper(WALLPAPER_FILE)     # gsettings set \u2026 picture-uri
+
+# On threshold crossing \u2192 desktop notification
+notify("CO2 Alert!", f"{co2} ppm \u2014 ventilate now", urgency="critical")`,
+      },
+    ],
   },
 ];

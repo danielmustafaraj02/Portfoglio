@@ -4,7 +4,7 @@ import './portfolio.css';
 import { LockDialog, LockIcon } from './LockDialog';
 import { MatrixRain, ScopeTrace, Typewriter } from './motion';
 import { useReducedMotion, useSectionReveal } from './useMotion';
-import { bachelorCourses, contact, focusAreas, masterCourses, passedCfu, projects, skills, weightedAverage, type Lang } from './profile';
+import { bachelorCourses, contact, focusAreas, masterCourses, passedCfu, projects, skills, weightedAverage, type Lang, type Project } from './profile';
 import { restore, type Unlocked } from './vault';
 
 const CERTIFICATE_URL = 'https://matlabacademy.mathworks.com/progress/share/certificate.html?id=5c08de2a-54d0-4fae-b2cf-11abfab504c7&';
@@ -78,6 +78,7 @@ const ui = {
     badgeBachelorAlt: "Digital badge: Bachelor's Degree in Ingegneria Informatica, Università di Padova",
     badgeEnglishAlt: 'Digital badge: English B2, Reading-Listening, Università di Padova',
     downloadCv: 'Download CV',
+    projectDetails: 'See details',
   },
   it: {
     title: 'Daniel Mustafaraj · Ingegneria Elettronica',
@@ -144,6 +145,7 @@ const ui = {
     badgeIssuer: 'Università di Padova',
     badgeBachelorAlt: 'Badge digitale: Laurea Triennale in Ingegneria Informatica, Università di Padova',
     badgeEnglishAlt: 'Badge digitale: Inglese B2, Reading-Listening, Università di Padova',
+    projectDetails: 'Vedi dettagli',
     downloadCv: 'Scarica il CV',
   },
 };
@@ -191,11 +193,111 @@ function Section({ id, title, children }: { id: string; title: string; children:
   );
 }
 
+// ── Project detail popup ──────────────────────────────────────────────────────
+function ProjectDialog({ project, lang, onClose, closeLabel }: {
+  project: Project;
+  lang: Lang;
+  onClose: () => void;
+  closeLabel: string;
+}) {
+  const ref = useRef<HTMLDialogElement>(null);
+
+  useEffect(() => {
+    ref.current?.showModal();
+  }, []);
+
+  const close = () => {
+    ref.current?.close();
+    onClose();
+  };
+
+  return (
+    <dialog
+      ref={ref}
+      className="project-dialog"
+      onClick={e => e.target === e.currentTarget && close()}
+      onClose={onClose}
+    >
+      <div className="project-dialog-inner">
+        <div className="project-dialog-header">
+          <div>
+            <h2>{project.title[lang]}</h2>
+            <div className="tags">{project.tags.join(' · ')}</div>
+          </div>
+          <button type="button" className="btn project-dialog-close" onClick={close} aria-label={closeLabel}>✕</button>
+        </div>
+
+        {project.image && (
+          <img
+            className="project-dialog-image"
+            src={project.image}
+            alt={project.title[lang]}
+            loading="lazy"
+          />
+        )}
+
+        <p className="project-dialog-summary">{project.summary[lang]}</p>
+
+        {project.workflow && (
+          <section className="project-dialog-section">
+            <h3>{lang === 'it' ? 'Come funziona' : 'How it works'}</h3>
+            <ol className="project-dialog-steps">
+              {project.workflow.map(step => (
+                <li key={step.title.en}>
+                  <h4>{step.title[lang]}</h4>
+                  <p>{step.detail[lang]}</p>
+                </li>
+              ))}
+            </ol>
+          </section>
+        )}
+
+        {project.setup && (
+          <section className="project-dialog-section">
+            <h3>{lang === 'it' ? 'Come si imposta' : 'Setup'}</h3>
+            {project.setup.map(group => (
+              <div key={group.title.en} className="project-dialog-setup-group">
+                <h4>{group.title[lang]}</h4>
+                <ol>
+                  {group.steps.map((step, i) => (
+                    <li key={i}><code>{step[lang]}</code></li>
+                  ))}
+                </ol>
+              </div>
+            ))}
+          </section>
+        )}
+
+        {project.code && (
+          <section className="project-dialog-section">
+            <h3>{lang === 'it' ? 'Codice' : 'Code'}</h3>
+            {project.code.map(block => (
+              <div key={block.label.en} className="project-dialog-code-block">
+                <h4>{block.label[lang]}</h4>
+                <pre><code>{block.src}</code></pre>
+              </div>
+            ))}
+          </section>
+        )}
+
+        {project.note && (
+          <p className="project-note project-dialog-note">{project.note[lang]}</p>
+        )}
+
+        <div className="project-dialog-footer">
+          <button type="button" className="btn btn-primary" onClick={close}>{closeLabel}</button>
+        </div>
+      </div>
+    </dialog>
+  );
+}
+
 export default function App() {
   const photo = useRef<HTMLDialogElement>(null);
   const [lang, setLang] = useState<Lang>(initialLang);
   const [unlocked, setUnlocked] = useState<Unlocked | null>(null);
   const [lockOpenedFrom, setLockOpenedFrom] = useState<'hero' | 'about' | null>(null);
+  const [activeProject, setActiveProject] = useState<Project | null>(null);
   const heroEmail = useRef<HTMLAnchorElement>(null);
   const aboutEmail = useRef<HTMLAnchorElement>(null);
   const reduced = useReducedMotion();
@@ -394,22 +496,43 @@ export default function App() {
                     <span className="muted">{project.when}</span>
                   </span>
                 </h3>
+                {project.image && (
+                  <button
+                    type="button"
+                    className="project-thumb-btn"
+                    onClick={() => setActiveProject(project)}
+                    aria-label={t.projectDetails}
+                  >
+                    <img
+                      className="project-thumb"
+                      src={project.image}
+                      alt={project.title[lang]}
+                      loading="lazy"
+                    />
+                  </button>
+                )}
                 <p>{project.summary[lang]}</p>
                 <div className="tags">{project.tags.join(' · ')}</div>
-                {project.workflow && (
-                  <ul className="project-workflow">
-                    {project.workflow.map(step => (
-                      <li key={step.title.en}>
-                        <h4>{step.title[lang]}</h4>
-                        <p>{step.detail[lang]}</p>
-                      </li>
-                    ))}
-                  </ul>
+                {(project.workflow || project.setup || project.code) && (
+                  <button
+                    type="button"
+                    className="btn project-details-btn"
+                    onClick={() => setActiveProject(project)}
+                  >
+                    {t.projectDetails}
+                  </button>
                 )}
-                {project.note && <p className="project-note">{project.note[lang]}</p>}
               </li>
             ))}
           </ul>
+          {activeProject && (
+            <ProjectDialog
+              project={activeProject}
+              lang={lang}
+              onClose={() => setActiveProject(null)}
+              closeLabel={t.close}
+            />
+          )}
         </Section>
 
         <Section id="skills" title={t.skills}>
