@@ -4,7 +4,7 @@ import './portfolio.css';
 import { LockDialog, LockIcon } from './LockDialog';
 import { MatrixRain, ScopeTrace, Typewriter } from './motion';
 import { useReducedMotion, useSectionReveal } from './useMotion';
-import { bachelorCourses, contact, masterCourses, passedCfu, skills, weightedAverage, type Lang } from './profile';
+import { bachelorCourses, contact, masterCourses, passedCfu, projects, skills, weightedAverage, type Lang } from './profile';
 import { restore, type Unlocked } from './vault';
 
 const CERTIFICATE_URL = 'https://matlabacademy.mathworks.com/progress/share/certificate.html?id=5c08de2a-54d0-4fae-b2cf-11abfab504c7&';
@@ -381,6 +381,35 @@ export default function App() {
               </div>
             </li>
           </ol>
+        </Section>
+
+        <Section id="projects" title={t.projects}>
+          <ul className="projects">
+            {projects.map(project => (
+              <li key={project.title.en}>
+                <h3>
+                  <span>{project.title[lang]}</span>
+                  <span className="project-meta">
+                    <span className="project-status">{project.status ? project.status[lang] : project.when}</span>
+                    <span className="muted">{project.when}</span>
+                  </span>
+                </h3>
+                <p>{project.summary[lang]}</p>
+                <div className="tags">{project.tags.join(' · ')}</div>
+                {project.workflow && (
+                  <ul className="project-workflow">
+                    {project.workflow.map(step => (
+                      <li key={step.title.en}>
+                        <h4>{step.title[lang]}</h4>
+                        <p>{step.detail[lang]}</p>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+                {project.note && <p className="project-note">{project.note[lang]}</p>}
+              </li>
+            ))}
+          </ul>
         </Section>
 
         <Section id="skills" title={t.skills}>

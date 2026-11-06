@@ -142,6 +142,43 @@ export type Project = {
 // Planned work stays clearly labeled until it has been built or agreed with a supervisor.
 export const projects: Project[] = [
   {
+    title: { en: 'Room CO₂ alert monitor', it: 'Monitoraggio CO₂ ambientale' },
+    when: '2025',
+    status: { en: 'Completed', it: 'Completato' },
+    summary: {
+      en: 'A real-time indoor air-quality monitor that reads CO₂, temperature and humidity from an SCD41 sensor and shows the values on the desktop wallpaper with an instant red alert when ventilation is needed.',
+      it: 'Un monitor in tempo reale della qualità dell’aria indoor che legge CO₂, temperatura e umidità da un sensore SCD41 e mostra i valori sul desktop con un allarme rosso immediato quando serve ventilare.',
+    },
+    tags: ['Arduino Nano', 'SCD41', 'Python', 'GNOME', 'Air quality'],
+    workflow: [
+      {
+        title: { en: '1 · Sense the room', it: '1 · Misurare la stanza' },
+        detail: {
+          en: 'The Arduino Nano reads the SCD41 sensor over I2C and prints the measured CO₂, temperature and humidity values every few seconds through the serial port.',
+          it: 'L’Arduino Nano legge il sensore SCD41 via I2C e invia ogni pochi secondi i valori di CO₂, temperatura e umidità tramite seriale.',
+        },
+      },
+      {
+        title: { en: '2 · Turn data into a live alert', it: '2 · Trasformare i dati in un allarme live' },
+        detail: {
+          en: 'A Python service parses the serial stream, updates a wallpaper with the latest values, and triggers a desktop notification when the CO₂ threshold is crossed.',
+          it: 'Un servizio Python analizza il flusso seriale, aggiorna uno sfondo con i valori più recenti e invia una notifica desktop quando viene superata la soglia di CO₂.',
+        },
+      },
+      {
+        title: { en: '3 · Keep the system useful', it: '3 · Mantenere il sistema utile' },
+        detail: {
+          en: 'The script saves the original background, restores it when the service stops, reconnects automatically if the board is unplugged, and stays lightweight enough to run in the background.',
+          it: 'Lo script salva lo sfondo originale, lo ripristina quando il servizio si ferma, si riconnette automaticamente se la scheda viene scollegata e resta leggero abbastanza da girare in background.',
+        },
+      },
+    ],
+    note: {
+      en: 'This is useful because high CO₂ levels reduce focus, comfort and air quality. A simple visual warning makes it easy to ventilate a room before the air becomes stale or unhealthy.',
+      it: 'È utile perché alti livelli di CO₂ riducono concentrazione, comfort e qualità dell’aria. Un semplice avviso visivo rende facile ventilare la stanza prima che l’aria diventi stantia o poco salutare.',
+    },
+  },
+  {
     title: { en: 'Master’s thesis search · shortlist to proposal', it: 'Ricerca tesi magistrale · dalla selezione alla proposta' },
     when: '2026–27',
     status: { en: 'Planning', it: 'In pianificazione' },
