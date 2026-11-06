@@ -578,6 +578,12 @@ strong { color: var(--heading); font-weight: 600; }
   background: var(--surface);
   color: var(--text);
   overflow: hidden;
+  /* center on viewport — native <dialog> uses margin:auto but needs explicit placement */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  margin: 0;
 }
 .project-dialog::backdrop {
   background: rgba(8, 9, 12, .82);
@@ -707,6 +713,8 @@ strong { color: var(--heading); font-weight: 600; }
   line-height: 1.65;
   color: #c9d1d9;
 }
+/* keep hljs token colours but match our background */
+.project-dialog-code-block pre code.hljs { background: transparent; padding: 0; font-size: inherit; }
 
 .project-dialog-note {
   padding: .8rem .9rem;

@@ -1,11 +1,18 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { flushSync } from 'react-dom';
+import hljs from 'highlight.js/lib/core';
+import hljsCpp from 'highlight.js/lib/languages/cpp';
+import hljsPython from 'highlight.js/lib/languages/python';
+import 'highlight.js/styles/github-dark.css';
 import './portfolio.css';
 import { LockDialog, LockIcon } from './LockDialog';
 import { MatrixRain, ScopeTrace, Typewriter } from './motion';
 import { useReducedMotion, useSectionReveal } from './useMotion';
 import { bachelorCourses, contact, focusAreas, masterCourses, passedCfu, projects, skills, weightedAverage, type Lang, type Project } from './profile';
 import { restore, type Unlocked } from './vault';
+
+hljs.registerLanguage('cpp', hljsCpp);
+hljs.registerLanguage('python', hljsPython);
 
 const CERTIFICATE_URL = 'https://matlabacademy.mathworks.com/progress/share/certificate.html?id=5c08de2a-54d0-4fae-b2cf-11abfab504c7&';
 // Download names; the files themselves are decrypted in the browser once the visitor unlocks them.
@@ -274,7 +281,11 @@ function ProjectDialog({ project, lang, onClose, closeLabel }: {
             {project.code.map(block => (
               <div key={block.label.en} className="project-dialog-code-block">
                 <h4>{block.label[lang]}</h4>
-                <pre><code>{block.src}</code></pre>
+                <pre><code
+                  dangerouslySetInnerHTML={{
+                    __html: hljs.highlight(block.src, { language: block.lang }).value,
+                  }}
+                /></pre>
               </div>
             ))}
           </section>
