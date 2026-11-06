@@ -4,7 +4,7 @@ import './portfolio.css';
 import { LockDialog, LockIcon } from './LockDialog';
 import { MatrixRain, ScopeTrace, Typewriter } from './motion';
 import { useReducedMotion, useSectionReveal } from './useMotion';
-import { bachelorCourses, contact, masterCourses, passedCfu, projects, skills, weightedAverage, type Lang } from './profile';
+import { bachelorCourses, contact, focusAreas, masterCourses, passedCfu, projects, skills, weightedAverage, type Lang } from './profile';
 import { restore, type Unlocked } from './vault';
 
 const CERTIFICATE_URL = 'https://matlabacademy.mathworks.com/progress/share/certificate.html?id=5c08de2a-54d0-4fae-b2cf-11abfab504c7&';
