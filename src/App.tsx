@@ -507,21 +507,6 @@ export default function App() {
                     <span className="muted">{project.when}</span>
                   </span>
                 </h3>
-                {project.image && (
-                  <button
-                    type="button"
-                    className="project-thumb-btn"
-                    onClick={() => setActiveProject(project)}
-                    aria-label={t.projectDetails}
-                  >
-                    <img
-                      className="project-thumb"
-                      src={project.image}
-                      alt={project.title[lang]}
-                      loading="lazy"
-                    />
-                  </button>
-                )}
                 <p>{project.summary[lang]}</p>
                 <div className="tags">{project.tags.join(' · ')}</div>
                 {(project.workflow || project.setup || project.code) && (
